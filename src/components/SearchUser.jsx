@@ -5,7 +5,7 @@ import { useLazyQuery, gql } from "@apollo/client";
 
 const SEARCH_USER = gql`
   query searchUser($username: String!, $startCursor: String, $endCursor: String) {
-    search(type: USER, query: $username, first: 5, after: $startCursor, before: $endCursor ) {
+    search(type: USER, query: $username, last: 5, after: $startCursor, before: $endCursor ) {
       edges {
         cursor
         node {
@@ -52,8 +52,8 @@ const SearchUser = () => {
   const [fetchUsers, { loading, error, data }] = useLazyQuery(SEARCH_USER, {
     variables: {
       username,
-      startCursor: cursors.startCursor || null,
-      endCursor: cursors.endCursor || null
+      startCursor: cursors.startCursor,
+      endCursor: cursors.endCursor
     },
   });
 
@@ -84,12 +84,15 @@ const SearchUser = () => {
       {data && <UserList users={users} fetchUsers={fetchUsers}/>}
       {loading && <Spin size='large' className="loading"/>}
       {error && <div className="error">Error Loading Data</div>}
-      {pageInfo?.hasPreviousPage && (<Button onClick={() => {setCursors({ startCursor: null, endCursor: pageInfo.startCursor })}}>Prev</Button> )}
+      {pageInfo?.hasPreviousPage && (<Button onClick={() => {
+        setCursors({ startCursor: null, endCursor: pageInfo.startCursor })
+        fetchUsers(username, cursors)
+        }}>Prev</Button> )}
       {' '}
       {pageInfo?.hasNextPage && (
       <Button onClick={() => {
         setCursors({ startCursor: pageInfo.endCursor, endCursor: null })
-
+        fetchUsers(username, cursors)
         }}>
           Next
       </Button> )}</div>);
