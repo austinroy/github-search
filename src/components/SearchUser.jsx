@@ -31,6 +31,11 @@ const SEARCH_USER = gql`
         }
       }
       userCount
+        pageInfo {
+        endCursor
+        hasNextPage
+        hasPreviousPage
+      }
     }
   }
 `;
@@ -58,7 +63,7 @@ const SearchUser = () => {
 
   return (
     <div>
-      Search Github Users
+      <h1>Search Github Users</h1>
       <Search onSearch={onSearch} enterButton size="large" />
       {data && <div>{data.search.userCount} Results</div>}
       <br />
