@@ -58,7 +58,7 @@ const SearchUser = () => {
 
   return (
     <div>
-      Search Github users
+      Search Github Users
       <Search onSearch={onSearch} enterButton size="large" />
       {data && <div>{data.search.userCount} Results</div>}
       <br />
