@@ -22,7 +22,6 @@ const client = new ApolloClient({
 });
 
 function App() {
-  console.group(process.env)
   return (
     <div className="App">
       <ApolloProvider client={client}>
