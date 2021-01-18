@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Input, Spin } from "antd";
+import { Input, Spin, Button } from "antd";
 import UserList from "./UserList";
 import { useLazyQuery, gql } from "@apollo/client";
 
 const SEARCH_USER = gql`
-  query searchUser($username: String!) {
-    search(type: USER, query: $username, first: 5 ) {
+  query searchUser($username: String!, $startCursor: String, $endCursor: String) {
+    search(type: USER, query: $username, first: 5, after: $startCursor, before: $endCursor ) {
       edges {
         cursor
         node {
@@ -32,6 +32,7 @@ const SEARCH_USER = gql`
       }
       userCount
         pageInfo {
+        startCursor
         endCursor
         hasNextPage
         hasPreviousPage
@@ -43,22 +44,35 @@ const SEARCH_USER = gql`
 const SearchUser = () => {
   const { Search } = Input;
   const [username, setUserName] = useState("");
+  const [cursors, setCursors ] = useState({
+    startCursor: null,
+    endCursor: null
+  })
 
   const [fetchUsers, { loading, error, data }] = useLazyQuery(SEARCH_USER, {
     variables: {
       username,
+      startCursor: cursors.startCursor || null,
+      endCursor: cursors.endCursor || null
     },
   });
 
   const users = useMemo(() => data?.search?.edges || [], [data])
 
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
+  const pageInfo = useMemo(() => ({
+    startCursor : data?.search?.pageInfo.startCursor,
+    endCursor : data?.search?.pageInfo?.endCursor,
+    hasNextPage : data?.search?.pageInfo?.hasNextPage,
+    hasPreviousPage : data?.search?.pageInfo?.hasPreviousPage
+   })|| {} , [data])
+
+  useEffect(() =>{
+    console.log({cursors})
+  },[cursors])
 
   const onSearch = (value) => { 
     setUserName(value);
-    fetchUsers(username)
+    fetchUsers(username, cursors)
   };
 
   return (
@@ -69,9 +83,16 @@ const SearchUser = () => {
       <br />
       {data && <UserList users={users} fetchUsers={fetchUsers}/>}
       {loading && <Spin size='large' className="loading"/>}
-      {error && <div classname="error">Error Loading Data</div>}
-    </div>
-  );
+      {error && <div className="error">Error Loading Data</div>}
+      {pageInfo?.hasPreviousPage && (<Button onClick={() => {setCursors({ startCursor: null, endCursor: pageInfo.startCursor })}}>Prev</Button> )}
+      {' '}
+      {pageInfo?.hasNextPage && (
+      <Button onClick={() => {
+        setCursors({ startCursor: pageInfo.endCursor, endCursor: null })
+
+        }}>
+          Next
+      </Button> )}</div>);
 };
 
 export default SearchUser;
