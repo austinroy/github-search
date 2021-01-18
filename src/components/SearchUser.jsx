@@ -66,10 +66,6 @@ const SearchUser = () => {
     hasPreviousPage : data?.search?.pageInfo?.hasPreviousPage
    })|| {} , [data])
 
-  useEffect(() =>{
-    console.log({data})
-  },[data])
-
   const onSearch = (value) => { 
     setUserName(value);
     fetchUsers(username, cursors)
