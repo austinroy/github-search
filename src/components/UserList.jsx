@@ -13,19 +13,19 @@ const UserList = ({users}) => {
             renderItem={item => (
             <List.Item>
                 <List.Item.Meta
-                avatar={<Avatar src={item.node.avatarUrl} size='large'/>}
-                title={<a href={item.node.url}>{item.node.name}</a>}
-                description={item.node.bio}
+                avatar={<Avatar src={item?.node?.avatarUrl} size='large'/>}
+                title={<a href={item?.node?.url}>{item?.node?.name}</a>}
+                description={item?.node?.bio}
                 className='meta'
                 />
                 <br/>           
-                <StarTwoTone /> { item.node.starredRepositories.totalCount}
+                <StarTwoTone /> { item?.node?.starredRepositories?.totalCount}
                 <br />
-                Followers: { item.node.followers.totalCount}
+                Followers: { item?.node?.followers?.totalCount}
                 <br />
-                Following: { item.node.following.totalCount}
+                Following: { item?.node?.following?.totalCount}
                 <br />
-                <EnvironmentTwoTone /> { item.node.location}
+                <EnvironmentTwoTone /> { item?.node?.location}
             </List.Item>
             )}
         />

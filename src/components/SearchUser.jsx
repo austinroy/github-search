@@ -67,8 +67,8 @@ const SearchUser = () => {
    })|| {} , [data])
 
   useEffect(() =>{
-    console.log({cursors})
-  },[cursors])
+    console.log({data})
+  },[data])
 
   const onSearch = (value) => { 
     setUserName(value);
@@ -79,7 +79,7 @@ const SearchUser = () => {
     <div>
       <h1>Search Github Users</h1>
       <Search onSearch={onSearch} enterButton size="large" />
-      {data && <div>{data.search.userCount} Results</div>}
+      {data && <div>{data?.search?.userCount} Results</div>}
       <br />
       {data && <UserList users={users} fetchUsers={fetchUsers}/>}
       {loading && <Spin size='large' className="loading"/>}
