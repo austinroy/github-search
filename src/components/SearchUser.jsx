@@ -68,6 +68,10 @@ const SearchUser = () => {
 
   const onSearch = (value) => { 
     setUserName(value);
+    setCursors({
+      startCursor: null,
+      endCursor: null
+    })
     fetchUsers(username, cursors)
   };
 
