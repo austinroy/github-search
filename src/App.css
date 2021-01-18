@@ -1,7 +1,7 @@
 @import '~antd/dist/antd.css';
 
 .App {
-  text-align: center;
+  padding : 10rem;
 }
 
 .App-logo {
@@ -9,22 +9,28 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.user-list{
+  margin-top: .5rem;
+  padding: 1.5rem;
 }
 
-.App-header {
+.content {
   background-color:white;
-  padding: 5rem;
   min-height: 100vh;
   display: block;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: black;
+}
+
+.meta{
+  width: 75%;
+}
+
+.loading{
+  margin-top: .5rem;
+  padding: 1.5rem;
+  display: block;
+  margin: 0 auto;
 }
 
 .App-link {

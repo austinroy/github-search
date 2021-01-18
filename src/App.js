@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="App">
       <ApolloProvider client={client}>
-        <div className="App-header">
+        <div className="content">
         <SearchUser />
         </div>
       </ApolloProvider>
