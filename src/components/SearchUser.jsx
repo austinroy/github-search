@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Input, Spin, Button } from "antd";
 import UserList from "./UserList";
 import { useLazyQuery, gql } from "@apollo/client";
