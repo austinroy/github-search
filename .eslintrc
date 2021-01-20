@@ -1,0 +1,60 @@
+{  
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true,
+    "es6": true
+  },
+  "globals": {
+    "shallow": true,
+    "render": true,
+    "mount": true,
+    "__DEV__": true
+  },
+  "settings": {
+    "import/resolver": {
+      "babel-module": {
+        "paths": ["src"],
+        "extensions": [".js"]
+      }
+    }
+  },
+  "parser": "babel-eslint",
+  "extends": ["airbnb", "prettier", "@imaginary-cloud/react"],
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "semi": ["error", "always"],
+    "comma-dangle": ["error", "never"],
+    "quotes": ["error", "double"],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["**/*.test.js", "**/*.spec.js", "**/*.story.js"]
+      }
+    ],
+    "no-underscore-dangle": 0,
+    "no-useless-constructor": 0,
+    "react/prop-types": [
+      "error",
+      {
+        "ignore": ["navigation"]
+      }
+    ],
+    "object-curly-spacing": ["error", "always"],
+    "react/destructuring-assignment": [
+      "warn",
+      "always",
+      {
+        "ignoreClassFields": true
+      }
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  },
+  "plugins": ["module-resolver", "react-hooks"]
+}
